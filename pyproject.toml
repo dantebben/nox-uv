@@ -1,0 +1,117 @@
+[project]
+name = "nox-uv"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Dan Tebben", email = "dantebben@gmail.com" }
+]
+requires-python = ">=3.9"
+dependencies = [
+    "nox>=2025.2.9",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-gen-files>=0.5.0",
+    "mkdocs-htmlproofer-plugin>=1.3.0",
+    "mkdocs-literate-nav>=0.6.1",
+    "mkdocs-material>=9.6.5",
+    "mkdocstrings[python]>=0.28.2",
+]
+lint = [
+    "ruff>=0.9.7",
+]
+test = [
+    "pytest-cov>=6.0.0",
+    "pytest-randomly>=3.16.0",
+]
+type-check = [
+    "mypy>=1.15.0",
+]
+
+[tool.uv]
+default-groups = [
+    "lint",
+    "test",
+    "type-check",
+]
+
+
+[tool.mypy]
+ignore_missing_imports = true
+strict = true
+# TODO: Remove this when explicit-override is enabled by default in strict mode
+#   https://github.com/python/mypy/issues/17511
+enable_error_code = ["explicit-override"]
+# If certain strict config options are too pedantic for a project,
+# disable them selectively here by setting to false.
+
+[tool.ruff]
+line-length = 99
+src = ["src"]
+# Ruff will automatically exclude all files listed in .gitignore as well as common temporary Python
+# tool directories.
+# To exclude additional folders, use extend-exclude.
+
+[tool.ruff.lint]
+select = [
+    "F", # pyflakes
+    "E", # pycodestyle
+    "I", # isort
+    "N", # pep8-naming
+    "UP", # pyupgrade
+    "RUF", # ruff
+    "B", # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "ISC", # flake8-implicit-str-concat
+    "PIE", # flake8-pie
+    "PT", # flake-pytest-style
+    "PTH", # flake8-use-pathlib
+    "SIM", # flake8-simplify
+    "TID", # flake8-tidy-imports
+]
+extend-ignore = [
+    "RUF005",
+    "RUF012",
+]
+unfixable = [
+    # Disable removing unused imports by default and only enable within nox so editors don't delete
+    # unused imports while the user is in the middle of editing a file on save.
+    "F401",
+]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+split-on-trailing-comma = false
+# For non-src directory projects, explicitly set top level package names:
+# known-first-party = ["my-app"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["typer.Argument"]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--strict-config",
+    "--strict-markers",
+]
+xfail_strict = true
+filterwarnings = [
+    # When running tests, treat warnings as errors (e.g. -Werror).
+    # See: https://docs.pytest.org/en/latest/reference/reference.html#confval-filterwarnings
+    "error",
+    # Add additional warning suppressions as needed here. For example, if a third-party library
+    # is throwing a deprecation warning that needs to be fixed upstream:
+    # "ignore::DeprecationWarning:typer",
+]
+
+[tool.coverage.run]
+branch = true

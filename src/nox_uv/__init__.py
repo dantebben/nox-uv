@@ -1,0 +1,106 @@
+from __future__ import annotations
+
+from collections.abc import Sequence
+import functools
+from typing import Any, Callable, TypeVar
+
+import nox
+
+R = TypeVar("R")
+
+Python = Sequence[str] | str | bool | None
+
+
+def session(
+    *args: Any,
+    python: Python | None = None,
+    reuse_venv: bool | None = None,
+    name: str | None = None,
+    venv_backend: Any | None = None,
+    venv_params: Sequence[str] = (),
+    tags: Sequence[str] | None = None,
+    default: bool = True,
+    requires: Sequence[str] | None = None,
+    uv_groups: Sequence[str] = (),
+    uv_extras: Sequence[str] = (),
+    uv_all_extras: bool = False,
+    uv_all_groups: bool = False,
+) -> Callable[..., R]:
+    """Drop-in replacement for the :func:`nox.session` decorator.
+
+    Use this decorator instead of ``@nox.session``. Session functions are passed
+    :class:`Session` instead of :class:`nox.sessions.Session`; otherwise, the
+    decorators work exactly the same.
+
+    Args:
+        args: Positional arguments are forwarded to ``nox.session``.
+        kwargs: Keyword arguments are forwarded to ``nox.session``.
+
+    Returns:
+        The decorated session function.
+    """
+    if not args:
+        return functools.partial(
+            session,
+            python=python,
+            reuse_venv=reuse_venv,
+            name=name,
+            venv_backend=venv_backend,
+            venv_params=venv_params,
+            tags=tags,
+            default=default,
+            requires=requires,
+            uv_groups=uv_groups,
+            uv_extras=uv_extras,
+            uv_all_extras=uv_all_extras,
+            uv_all_groups=uv_all_groups,
+        )  # type: ignore
+
+    [function] = args
+
+    is_uv = venv_backend == "uv"
+
+    # Create the `uv sync` command
+    sync_cmd = ["uv", "sync", "--no-default-groups"]
+
+    # Add the groups
+    for g in uv_groups:
+        sync_cmd.append(f"--group={g}")
+
+    # Add the extras
+    for e in uv_extras:
+        sync_cmd.append(f"--extra={e}")
+
+    if uv_all_groups:
+        sync_cmd.append("--all-groups")
+
+    if uv_all_extras:
+        sync_cmd.append("--all-extras")
+
+    @functools.wraps(function)
+    def wrapper(s: nox.Session, *_args: Any, **_kwargs: Any) -> None:
+        if is_uv:
+            env: dict[str, Any] = {"UV_PROJECT_ENVIRONMENT": s.virtualenv.location}
+
+            # UV called from Nox does not respect the Python version set in the Nox session.
+            # We need to pass the Python version to UV explicitly.
+            if s.python is not None:
+                env["UV_PYTHON"] = s.python
+
+            s.run_install(
+                *sync_cmd,
+                env=env,
+            )
+        function(nox.Session(s._runner), *_args, **_kwargs)
+
+    return nox.session(  # type: ignore
+        wrapper,
+        python=python,
+        reuse_venv=reuse_venv,
+        name=name,
+        venv_backend=venv_backend,
+        venv_params=venv_params,
+        tags=tags,
+        default=default,
+        requires=requires,
+    )

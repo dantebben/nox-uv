@@ -1,7 +1,7 @@
 [project]
 name = "nox-uv"
 version = "0.1.0"
-description = "Add your description here"
+description = "Facilitate nox integration with uv for Python projects"
 readme = "README.md"
 authors = [
     { name = "Dan Tebben", email = "dantebben@gmail.com" }

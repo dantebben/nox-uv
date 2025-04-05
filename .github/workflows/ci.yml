@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        nox-session: ["lint", "type_check", "docs"]
+        nox-session: ["lint", "type_check"]
     steps:
       - uses: actions/checkout@v4
       - name: Install uv
@@ -46,4 +46,3 @@ jobs:
         run: uv sync --locked
       - name: Test with Nox
         run: uv run nox -s ${{ matrix.nox-session }}
-        

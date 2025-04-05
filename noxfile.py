@@ -11,7 +11,7 @@ options.sessions = ["lint", "type_check", "test"]
 @session(
     venv_backend="uv",
     reuse_venv=True,
-    python=["3.9", "3.10", "3.11", "3.12"],
+    python=["3.9", "3.10", "3.11", "3.12", "3.13"],
     uv_groups=["test"],
     uv_all_groups=True,
 )

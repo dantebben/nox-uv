@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "Dan Tebben", email = "dantebben@gmail.com" }
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.9, <=3.13"
 dependencies = [
     "nox>=2025.2.9",
 ]

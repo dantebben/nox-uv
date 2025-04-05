@@ -6,10 +6,15 @@ readme = "README.md"
 authors = [
     { name = "Dan Tebben", email = "dantebben@gmail.com" }
 ]
+license = "MIT"
+license-files = ["LICENSE.txt"]
 requires-python = ">=3.9, <3.14"
 dependencies = [
     "nox>=2025.2.9",
 ]
+
+[project.urls]
+Homepage = "https://github.com/dantebben/nox-uv"
 
 [build-system]
 requires = ["hatchling"]

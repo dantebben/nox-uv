@@ -25,7 +25,7 @@ def session(
     uv_extras: Sequence[str] = (),
     uv_all_extras: bool = False,
     uv_all_groups: bool = False,
-) -> Callable[..., R]:
+) -> Callable[..., Callable[..., R]]:
     """Drop-in replacement for the :func:`nox.session` decorator.
 
     Use this decorator instead of ``@nox.session``. Session functions are passed

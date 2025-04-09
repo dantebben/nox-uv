@@ -25,16 +25,14 @@ def session(
     uv_extras: Sequence[str] = (),
     uv_all_extras: bool = False,
     uv_all_groups: bool = False,
+    **kwargs: dict[str, Any],
 ) -> Callable[..., Callable[..., R]]:
-    """Drop-in replacement for the :func:`nox.session` decorator.
-
-    Use this decorator instead of ``@nox.session``. Session functions are passed
-    :class:`Session` instead of :class:`nox.sessions.Session`; otherwise, the
-    decorators work exactly the same.
+    """Drop-in replacement for the :func:`nox.session` decorator to add support for `uv`.
 
     Args:
         args: Positional arguments are forwarded to ``nox.session``.
-        kwargs: Keyword arguments are forwarded to ``nox.session``.
+        kwargs: Keyword arguments are forwarded to ``nox.session``. Used to catch any future
+            arguments of nox.session that aren't explicitely captured in nox_uv.session.
 
     Returns:
         The decorated session function.
@@ -54,6 +52,7 @@ def session(
             uv_extras=uv_extras,
             uv_all_extras=uv_all_extras,
             uv_all_groups=uv_all_groups,
+            **kwargs,
         )  # type: ignore
 
     [function] = args
@@ -106,4 +105,5 @@ def session(
         tags=tags,
         default=default,
         requires=requires,
+        **kwargs,
     )

@@ -56,15 +56,12 @@ strict = true
 # TODO: Remove this when explicit-override is enabled by default in strict mode
 #   https://github.com/python/mypy/issues/17511
 enable_error_code = ["explicit-override"]
-# If certain strict config options are too pedantic for a project,
-# disable them selectively here by setting to false.
+
 
 [tool.ruff]
 line-length = 99
 src = ["src"]
-# Ruff will automatically exclude all files listed in .gitignore as well as common temporary Python
-# tool directories.
-# To exclude additional folders, use extend-exclude.
+
 
 [tool.ruff.lint]
 select = [
@@ -96,8 +93,7 @@ unfixable = [
 [tool.ruff.lint.isort]
 force-sort-within-sections = true
 split-on-trailing-comma = false
-# For non-src directory projects, explicitly set top level package names:
-# known-first-party = ["my-app"]
+
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
@@ -115,4 +111,7 @@ filterwarnings = ["error"]
 
 [tool.coverage.run]
 parallel = true
+# The nox session that calls coverage does not find "src/nox_uv", but it is found in the 
+# subprocess. Coverage generates a warning that the module was not found, but coverage is actually
+# run and determined in the "parallel" subprocess.
 disable_warnings = ["module-not-imported", "no-data-collected"]

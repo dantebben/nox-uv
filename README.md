@@ -8,7 +8,7 @@ with the [uv](https://docs.astral.sh/uv/) package manager.
 
 To use, import `session` from `nox-uv` in your `nox-file`.
 
-**NOTE**: All `@session(...)` parameters are keyword-only, no positional parameters are allowed.
+**NOTE**: All `@session(...)` parameters are keywords only, no positional parameters are allowed.
 
 **NOTE**: The `default_groups` defined in `pyproject.toml` are _not_ installed by default. The
 user must explicitly list the desired groups in the `uv_groups` parameter. 

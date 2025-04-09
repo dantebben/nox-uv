@@ -4,20 +4,29 @@ from nox_uv import session
 
 options.error_on_external_run = True
 options.reuse_existing_virtualenvs = True
-options.sessions = ["lint", "type_check", "test"]
+options.default_venv_backend = "uv"
+options.sessions = ["uv_lock_check", "lint", "type_check", "test"]
 
 
-# Including Python 3.9 here just to test when UV_PYTHON_DOWNLOADS=never
+@session(venv_backend="none")
+def uv_lock_check(s: Session) -> None:
+    s.run("uv", "lock", "--check")
+
+
 @session(
-    venv_backend="uv",
     reuse_venv=True,
-    python=["3.9", "3.10", "3.11", "3.12", "3.13"],
+    python=["3.10", "3.11", "3.12", "3.13"],
     uv_groups=["test"],
-    uv_all_groups=True,
 )
 def test(s: Session) -> None:
     s.run(
+        "python",
+        "-m",
         "pytest",
+        "--cov=nox_uv",
+        "--cov-report=html",
+        "--cov-report=term",
+        "tests",
         *s.posargs,
     )
 
@@ -48,7 +57,7 @@ def fmt(s: Session, command: list[str]) -> None:
     s.run(*command)
 
 
-@session(venv_backend="uv", uv_groups=["lint"])
+@session(uv_groups=["lint"])
 @parametrize(
     "command",
     [
@@ -68,3 +77,14 @@ def lint_fix(s: Session) -> None:
 @session(venv_backend="none")
 def type_check(s: Session) -> None:
     s.run("mypy", "src", "tests", "noxfile.py")
+
+
+@session(venv_backend="none")
+def simple_test(s: Session) -> None:
+    assert 1 == 1
+
+
+@session(venv_backend="none")
+def run_test_as_session(s: Session) -> None:
+    """Test ability to call a nother session."""
+    simple_test(s)

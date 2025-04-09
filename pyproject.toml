@@ -1,6 +1,6 @@
 [project]
 name = "nox-uv"
-version = "0.1.0"
+version = "0.2.0"
 description = "Facilitate nox integration with uv for Python projects"
 readme = "README.md"
 authors = [
@@ -8,10 +8,16 @@ authors = [
 ]
 license = "MIT"
 license-files = ["LICENSE.txt"]
-requires-python = ">=3.9, <3.14"
+requires-python = ">=3.10"
 dependencies = [
     "nox>=2025.2.9",
 ]
+
+[project.optional-dependencies] 
+plot = ["plotly"]
+doc = ["mkdocs"]
+
+
 
 [project.urls]
 Homepage = "https://github.com/dantebben/nox-uv"
@@ -21,24 +27,20 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
-docs = [
-    "mkdocs>=1.6.1",
-    "mkdocs-gen-files>=0.5.0",
-    "mkdocs-htmlproofer-plugin>=1.3.0",
-    "mkdocs-literate-nav>=0.6.1",
-    "mkdocs-material>=9.6.5",
-    "mkdocstrings[python]>=0.28.2",
-]
 lint = [
     "ruff>=0.9.7",
 ]
 test = [
     "pytest-cov>=6.0.0",
-    "pytest-randomly>=3.16.0",
 ]
 type-check = [
     "mypy>=1.15.0",
 ]
+
+never-used = [
+    "networkx"
+]
+
 
 [tool.uv]
 default-groups = [
@@ -54,15 +56,12 @@ strict = true
 # TODO: Remove this when explicit-override is enabled by default in strict mode
 #   https://github.com/python/mypy/issues/17511
 enable_error_code = ["explicit-override"]
-# If certain strict config options are too pedantic for a project,
-# disable them selectively here by setting to false.
+
 
 [tool.ruff]
 line-length = 99
 src = ["src"]
-# Ruff will automatically exclude all files listed in .gitignore as well as common temporary Python
-# tool directories.
-# To exclude additional folders, use extend-exclude.
+
 
 [tool.ruff.lint]
 select = [
@@ -94,8 +93,7 @@ unfixable = [
 [tool.ruff.lint.isort]
 force-sort-within-sections = true
 split-on-trailing-comma = false
-# For non-src directory projects, explicitly set top level package names:
-# known-first-party = ["my-app"]
+
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
@@ -109,14 +107,11 @@ addopts = [
     "--strict-markers",
 ]
 xfail_strict = true
-filterwarnings = [
-    # When running tests, treat warnings as errors (e.g. -Werror).
-    # See: https://docs.pytest.org/en/latest/reference/reference.html#confval-filterwarnings
-    "error",
-    # Add additional warning suppressions as needed here. For example, if a third-party library
-    # is throwing a deprecation warning that needs to be fixed upstream:
-    # "ignore::DeprecationWarning:typer",
-]
+filterwarnings = ["error"]
 
 [tool.coverage.run]
-branch = true
+parallel = true
+# The nox session that calls coverage does not find "src/nox_uv", but it is found in the 
+# subprocess. Coverage generates a warning that the module was not found, but coverage is actually
+# run and determined in the "parallel" subprocess.
+disable_warnings = ["module-not-imported", "no-data-collected"]

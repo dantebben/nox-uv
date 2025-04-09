@@ -2,6 +2,8 @@ from nox import Session, options
 
 from nox_uv import session
 
+options.default_venv_backend = "uv"
+
 options.sessions = [
     "nox_test_1",
     "nox_test_2",
@@ -16,7 +18,7 @@ def nox_test_1(s: Session) -> None:
     s.run("python3", "--version")
 
 
-@session(venv_backend="uv", uv_groups=["test"])
+@session(uv_groups=["test"])
 def nox_test_2(s: Session) -> None:
     s.install("pip")
     r = s.run("python3", "-m", "pip", "list", silent=True)
@@ -25,7 +27,7 @@ def nox_test_2(s: Session) -> None:
         assert "networkx" not in r
 
 
-@session(venv_backend="uv", uv_all_groups=True)
+@session(uv_all_groups=True)
 def nox_test_3(s: Session) -> None:
     s.install("pip")
     r = s.run("python3", "-m", "pip", "list", silent=True)
@@ -34,7 +36,7 @@ def nox_test_3(s: Session) -> None:
         assert "networkx" in r
 
 
-@session(venv_backend="uv", uv_all_extras=True)
+@session(uv_all_extras=True)
 def nox_test_5(s: Session) -> None:
     s.install("pip")
     r = s.run("python3", "-m", "pip", "list", silent=True)
@@ -43,7 +45,7 @@ def nox_test_5(s: Session) -> None:
         assert "plotly" in r
 
 
-@session(venv_backend="uv", python=["3.10"])
+@session(python=["3.10"])
 def nox_test_4(s: Session) -> None:
     assert s.python == "3.10"
     v = s.run("python3", "--version", silent=True)

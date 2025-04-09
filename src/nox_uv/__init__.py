@@ -58,6 +58,9 @@ def session(
 
     [function] = args
 
+    if venv_backend is None:
+        venv_backend = nox.options.default_venv_backend
+
     is_uv = venv_backend == "uv"
 
     # Create the `uv sync` command

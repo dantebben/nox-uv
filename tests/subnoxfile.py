@@ -40,7 +40,7 @@ def nox_test_5(s: Session) -> None:
     r = s.run("python3", "-m", "pip", "list", silent=True)
     if isinstance(r, str):
         assert "networkx" not in r
-        assert "plotly" not in r
+        assert "plotly" in r
 
 
 @session(venv_backend="uv", python=["3.10"])

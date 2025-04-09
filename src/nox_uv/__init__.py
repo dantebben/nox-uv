@@ -57,11 +57,6 @@ def session(
 
     [function] = args
 
-    if venv_backend is None:
-        venv_backend = nox.options.default_venv_backend
-
-    is_uv = venv_backend == "uv"
-
     # Create the `uv sync` command
     sync_cmd = ["uv", "sync", "--no-default-groups"]
 
@@ -81,7 +76,7 @@ def session(
 
     @functools.wraps(function)
     def wrapper(s: nox.Session, *_args: Any, **_kwargs: Any) -> None:
-        if is_uv:
+        if s.venv_backend == "uv":
             env: dict[str, Any] = {"UV_PROJECT_ENVIRONMENT": s.virtualenv.location}
 
             # UV called from Nox does not respect the Python version set in the Nox session.

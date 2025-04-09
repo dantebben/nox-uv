@@ -12,11 +12,10 @@ def uv_lock_check(s: Session) -> None:
     s.run("uv", "lock", "--check")
 
 
-# Including Python 3.9 here just to test when UV_PYTHON_DOWNLOADS=never
 @session(
     venv_backend="uv",
     reuse_venv=True,
-    python=["3.9", "3.10", "3.11", "3.12", "3.13"],
+    python=["3.10", "3.11", "3.12", "3.13"],
     uv_groups=["test"],
 )
 def test(s: Session) -> None:

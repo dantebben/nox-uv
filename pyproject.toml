@@ -8,7 +8,7 @@ authors = [
 ]
 license = "MIT"
 license-files = ["LICENSE.txt"]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "nox>=2025.2.9",
 ]

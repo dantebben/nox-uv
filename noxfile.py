@@ -65,7 +65,7 @@ def fmt(s: Session, command: list[str]) -> None:
         ["ruff", "format", "--check", "."],
     ],
 )
-def lint(s: Session, command: list[str]) -> list:
+def lint(s: Session, command: list[str]) -> None:
     s.run(*command)
 
 

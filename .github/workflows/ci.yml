@@ -49,6 +49,6 @@ jobs:
 
   all_passed:
     runs-on: ubuntu-24.04
-    needs:
-      - test
-      - quality
+    needs: [test, quality]
+    steps:
+      - run: echo "All needed jobs passed"

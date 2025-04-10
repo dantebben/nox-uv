@@ -9,5 +9,6 @@ def test_1() -> None:
 def test_run_uv_nox() -> None:
     folder = Path(__file__).parent
     noxfile = folder / "subnoxfile.py"
-    a = subprocess.run(["python3", "-m", "nox", "-f", f"{noxfile}"])
+    command = ["nox", "-f", f"{noxfile}"]
+    a = subprocess.run(command)
     assert a.returncode == 0

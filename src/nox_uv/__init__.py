@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Sequence
 import functools
+import os
 from typing import Any, TypeVar
 
 import nox
@@ -25,6 +26,7 @@ def session(
     uv_extras: Sequence[str] = (),
     uv_all_extras: bool = False,
     uv_all_groups: bool = False,
+    uv_quiet_sync: bool = True,
     **kwargs: dict[str, Any],
 ) -> Callable[..., Callable[..., R]]:
     """Drop-in replacement for the :func:`nox.session` decorator to add support for `uv`.
@@ -52,6 +54,7 @@ def session(
             uv_extras=uv_extras,
             uv_all_extras=uv_all_extras,
             uv_all_groups=uv_all_groups,
+            uv_quiet_sync=uv_quiet_sync,
             **kwargs,
         )  # type: ignore
 
@@ -59,6 +62,9 @@ def session(
 
     # Create the `uv sync` command
     sync_cmd = ["uv", "sync", "--no-default-groups", "--locked"]
+
+    if uv_quiet_sync:
+        sync_cmd.append("--quiet")
 
     # Add the groups
     for g in uv_groups:
@@ -78,16 +84,19 @@ def session(
     def wrapper(s: nox.Session, *_args: Any, **_kwargs: Any) -> None:
         if s.venv_backend == "uv":
             env: dict[str, Any] = {"UV_PROJECT_ENVIRONMENT": s.virtualenv.location}
+            os.environ["UV_PROJECT_ENVIRONMENT"] = s.virtualenv.location
 
             # UV called from Nox does not respect the Python version set in the Nox session.
             # We need to pass the Python version to UV explicitly.
-            if s.python is not None:
+            if isinstance(s.python, str):
                 env["UV_PYTHON"] = s.python
+                os.environ["UV_PYTHON"] = s.python
 
             s.run_install(
                 *sync_cmd,
                 env=env,
             )
+
         function(nox.Session(s._runner), *_args, **_kwargs)
 
     return nox.session(  # type: ignore

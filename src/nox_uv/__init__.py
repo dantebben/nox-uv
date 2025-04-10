@@ -58,7 +58,7 @@ def session(
     [function] = args
 
     # Create the `uv sync` command
-    sync_cmd = ["uv", "sync", "--no-default-groups"]
+    sync_cmd = ["uv", "sync", "--no-default-groups", "--locked"]
 
     # Add the groups
     for g in uv_groups:

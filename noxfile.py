@@ -1,4 +1,4 @@
-from nox import Session, options, parametrize, command
+from nox import Session, parametrize, options
 
 from nox_uv import session
 

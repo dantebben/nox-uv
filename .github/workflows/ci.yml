@@ -47,8 +47,4 @@ jobs:
       - name: Test with Nox
         run: uv run nox -s ${{ matrix.nox-session }}
 
-  all_passed:
-    runs-on: ubuntu-24.04
-    needs: [test, quality]
-    steps:
-      - run: echo "All needed jobs passed"
+

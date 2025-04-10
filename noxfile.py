@@ -1,4 +1,4 @@
-from nox import Session, parametrize, options
+from nox import Session, options, parametrize
 
 from nox_uv import session
 
@@ -65,7 +65,7 @@ def fmt(s: Session, command: list[str]) -> None:
         ["ruff", "format", "--check", "."],
     ],
 )
-def lint(s: Session, command: list[str]) -> None:
+def lint(s: Session, command: list[str]) -> list:
     s.run(*command)
 
 

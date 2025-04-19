@@ -21,29 +21,35 @@ def check_python_version(s: Session) -> None:
 
 @session(uv_groups=["test"])
 def only_test_group(s: Session) -> None:
-    s.install("pip")
-    r = s.run("python3", "-m", "pip", "list", silent=True)
-    if isinstance(r, str):
-        assert "pytest-cov" in r
-        assert "networkx" not in r
+    r = s.run("uv", "pip", "list", silent=True)
+    assert isinstance(r, str)
+    assert "pytest-cov" in r
+    assert "networkx" not in r
 
 
 @session(uv_all_groups=True)
 def all_groups(s: Session) -> None:
-    s.install("pip")
-    r = s.run("python3", "-m", "pip", "list", silent=True)
-    if isinstance(r, str):
-        assert "pytest-cov" in r
-        assert "networkx" in r
+    r = s.run("uv", "pip", "list", silent=True)
+    assert isinstance(r, str)
+    assert "pytest-cov" in r
+    assert "networkx" in r
 
 
 @session(uv_all_extras=True)
 def all_extras(s: Session) -> None:
-    s.install("pip")
-    r = s.run("python3", "-m", "pip", "list", silent=True)
-    if isinstance(r, str):
-        assert "networkx" not in r
-        assert "scapy" in r
+    r = s.run("uv", "pip", "list", silent=True)
+    assert isinstance(r, str)
+    assert "networkx" not in r
+    assert "pyyaml" in r
+
+
+@session(uv_extras=["pyyaml"])
+def only_one_extra(s: Session) -> None:
+    r = s.run("uv", "pip", "list", silent=True)
+    assert isinstance(r, str)
+    assert "scapy" not in r
+    assert "networkx" not in r
+    assert "pyyaml" in r
 
 
 @session(python=["3.10"])

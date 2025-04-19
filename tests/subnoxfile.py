@@ -3,23 +3,24 @@ from nox import Session, options
 from nox_uv import session
 
 options.default_venv_backend = "uv"
+options.reuse_existing_virtualenvs = False
 
 options.sessions = [
-    "nox_test_1",
-    "nox_test_2",
-    "nox_test_3",
-    "nox_test_4",
-    "nox_test_5",
+    "check_python_version",
+    "only_test_group",
+    "all_groups",
+    "all_extras",
+    "correct_python",
 ]
 
 
 @session(venv_backend="none")
-def nox_test_1(s: Session) -> None:
+def check_python_version(s: Session) -> None:
     s.run("python3", "--version")
 
 
 @session(uv_groups=["test"])
-def nox_test_2(s: Session) -> None:
+def only_test_group(s: Session) -> None:
     s.install("pip")
     r = s.run("python3", "-m", "pip", "list", silent=True)
     if isinstance(r, str):
@@ -28,7 +29,7 @@ def nox_test_2(s: Session) -> None:
 
 
 @session(uv_all_groups=True)
-def nox_test_3(s: Session) -> None:
+def all_groups(s: Session) -> None:
     s.install("pip")
     r = s.run("python3", "-m", "pip", "list", silent=True)
     if isinstance(r, str):
@@ -37,16 +38,16 @@ def nox_test_3(s: Session) -> None:
 
 
 @session(uv_all_extras=True)
-def nox_test_5(s: Session) -> None:
+def all_extras(s: Session) -> None:
     s.install("pip")
     r = s.run("python3", "-m", "pip", "list", silent=True)
     if isinstance(r, str):
         assert "networkx" not in r
-        assert "plotly" in r
+        assert "scapy" in r
 
 
 @session(python=["3.10"])
-def nox_test_4(s: Session) -> None:
+def correct_python(s: Session) -> None:
     assert s.python == "3.10"
     v = s.run("python3", "--version", silent=True)
     if isinstance(v, str):

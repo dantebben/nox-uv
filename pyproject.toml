@@ -1,6 +1,6 @@
 [project]
 name = "nox-uv"
-version = "0.2.2"
+version = "0.2.3-dev"
 description = "Facilitate nox integration with uv for Python projects"
 readme = "README.md"
 authors = [

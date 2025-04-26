@@ -6,7 +6,7 @@ This is heavliy influcenced by, but much more limited than,
 This is a basic drop-in replacement for `nox.session` of [nox](https://nox.thea.codes/) to be used 
 with the [uv](https://docs.astral.sh/uv/) package manager.
 
-To use, import `session` from `nox-uv` in your `nox-file`.
+To use, import `session` from `nox-uv` in your `noxfile.py`.
 
 **NOTE**: All `@session(...)` parameters are keywords only, no positional parameters are allowed.
 
@@ -19,4 +19,3 @@ user must explicitly list the desired groups in the `uv_groups` parameter.
 - `uv_extras`: list of `uv` extras
 - `uv_all_extras`: boolean to install all extras from `pyproject.toml`
 - `uv_all_groups`: boolean to install all dependency groups
-

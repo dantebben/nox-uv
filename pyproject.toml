@@ -13,9 +13,10 @@ dependencies = [
     "nox>=2025.2.9",
 ]
 
+# These optional dependencies are only for testing ability to include/exclude extras.
 [project.optional-dependencies] 
-plot = ["plotly"]
-doc = ["mkdocs"]
+pyyaml = ["pyyaml"]
+scapy = ["scapy"]
 
 
 

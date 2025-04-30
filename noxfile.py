@@ -3,7 +3,7 @@ from nox import Session, options, parametrize
 from nox_uv import session
 
 options.error_on_external_run = True
-options.reuse_existing_virtualenvs = True
+options.reuse_existing_virtualenvs = False
 options.default_venv_backend = "uv"
 options.sessions = ["uv_lock_check", "lint", "type_check", "test"]
 
@@ -14,7 +14,6 @@ def uv_lock_check(s: Session) -> None:
 
 
 @session(
-    reuse_venv=True,
     python=["3.9", "3.10", "3.11", "3.12", "3.13"],
     uv_groups=["test"],
 )

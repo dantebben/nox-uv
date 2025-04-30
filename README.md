@@ -1,8 +1,5 @@
 ## Intro
 
-This is heavliy influcenced by, but much more limited than, 
-[nox-poetry](https://nox-poetry.readthedocs.io).
-
 This is a basic drop-in replacement for `nox.session` of [nox](https://nox.thea.codes/) to be used 
 with the [uv](https://docs.astral.sh/uv/) package manager.
 
@@ -20,3 +17,7 @@ user must explicitly list the desired groups in the `uv_groups` parameter.
 - `uv_all_extras`: boolean to install all extras from `pyproject.toml`
 - `uv_all_groups`: boolean to install all dependency groups
 
+---
+
+> **NOTE:** This is heavliy influcenced by, but much more limited than, 
+> [nox-poetry](https://nox-poetry.readthedocs.io).

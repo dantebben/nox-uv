@@ -6,7 +6,7 @@ This is heavliy influcenced by, but much more limited than,
 This is a basic drop-in replacement for `nox.session` of [nox](https://nox.thea.codes/) to be used 
 with the [uv](https://docs.astral.sh/uv/) package manager.
 
-To use, import `session` from `nox-uv` in your `nox-file`.
+To use, import `session` from `nox-uv` in your `noxfile.py`.
 
 **NOTE**: All `@session(...)` parameters are keywords only, no positional parameters are allowed.
 

@@ -21,6 +21,3 @@ user must explicitly list the desired groups in the `uv_groups` parameter.
 
 This is heavliy influcenced by, but much more limited than, 
 [nox-poetry](https://nox-poetry.readthedocs.io).
-
-> **NOTE:** This is heavliy influcenced by, but much more limited than, 
-> [nox-poetry](https://nox-poetry.readthedocs.io).

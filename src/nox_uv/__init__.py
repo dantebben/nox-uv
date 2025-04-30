@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from collections.abc import Callable, Sequence
 import functools
-from typing import Any, TypeVar
+from typing import Any, TypeVar, Union
 
 import nox
 
 R = TypeVar("R")
 
-Python = Sequence[str] | str | bool | None
+Python = Union[Sequence[str], str, bool]
 
 
 def session(

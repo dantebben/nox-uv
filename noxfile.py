@@ -15,7 +15,7 @@ def uv_lock_check(s: Session) -> None:
 
 @session(
     reuse_venv=True,
-    python=["3.10", "3.11", "3.12", "3.13"],
+    python=["3.9", "3.10", "3.11", "3.12", "3.13"],
     uv_groups=["test"],
 )
 def test(s: Session) -> None:

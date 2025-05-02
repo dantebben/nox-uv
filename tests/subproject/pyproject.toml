@@ -1,0 +1,42 @@
+[project]
+name = "subproject"
+version = "0.1.0"
+description = "Project for testing nox-uv"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Private: Do Not Upload",
+]
+dependencies = [
+    "nox-uv",
+]
+
+[tool.uv.sources]
+nox-uv = { path = "../../" }
+
+# These optional dependencies are only for testing ability to include/exclude extras.
+[project.optional-dependencies] 
+pyyaml = ["pyyaml"]
+scapy = ["scapy"]
+
+[dependency-groups]
+never-used = [
+    "networkx"
+]
+
+lint = [
+    "ruff>=0.9.7",
+]
+test = [
+    "pytest-cov>=6.0.0",
+]
+type-check = [
+    "mypy>=1.15.0",
+]
+
+[tool.uv]
+default-groups = [
+    "lint",
+    "test",
+    "type-check",
+]

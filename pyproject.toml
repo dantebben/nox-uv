@@ -29,13 +29,6 @@ dependencies = [
     "nox>=2025.2.9",
 ]
 
-# These optional dependencies are only for testing ability to include/exclude extras.
-[project.optional-dependencies] 
-pyyaml = ["pyyaml"]
-scapy = ["scapy"]
-
-
-
 [project.urls]
 Homepage = "https://github.com/dantebben/nox-uv"
 
@@ -54,18 +47,12 @@ type-check = [
     "mypy>=1.15.0",
 ]
 
-never-used = [
-    "networkx"
-]
-
-
 [tool.uv]
 default-groups = [
     "lint",
     "test",
     "type-check",
 ]
-
 
 [tool.mypy]
 ignore_missing_imports = true

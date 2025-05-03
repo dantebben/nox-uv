@@ -48,11 +48,7 @@ type-check = [
 ]
 
 [tool.uv]
-default-groups = [
-    "lint",
-    "test",
-    "type-check",
-]
+default-groups = "all"
 
 [tool.mypy]
 ignore_missing_imports = true

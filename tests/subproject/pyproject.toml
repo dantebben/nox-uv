@@ -14,7 +14,6 @@ dependencies = [
 [tool.uv.sources]
 nox-uv = { path = "../../" }
 
-# These optional dependencies are only for testing ability to include/exclude extras.
 [project.optional-dependencies] 
 pyyaml = ["pyyaml"]
 scapy = ["scapy"]

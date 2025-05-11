@@ -1,7 +1,19 @@
 ## Intro
 
-This is a basic drop-in replacement for `nox.session` of [nox](https://nox.thea.codes/) to be used 
-with the [uv](https://docs.astral.sh/uv/) package manager.
+[![GitHub Actions][github-actions-badge]](https://github.com/dantebben/nox-uv/actions)
+[![uv][uv-badge]](https://github.com/astral-sh/uv)
+[![Nox][nox-badge]](https://github.com/wntrblm/nox)
+[![Ruff][ruff-badge]](https://github.com/astral-sh/ruff)
+[![Type checked with mypy][mypy-badge]](https://mypy-lang.org/)
+
+[github-actions-badge]: https://github.com/dantebben/nox-uv/workflows/CI/badge.svg
+[uv-badge]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json
+[nox-badge]: https://img.shields.io/badge/%F0%9F%A6%8A-Nox-D85E00.svg
+[ruff-badge]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+[mypy-badge]: https://www.mypy-lang.org/static/mypy_badge.svg
+
+`nox-uv` is a basic drop-in replacement for `nox.session` of [nox](https://nox.thea.codes/) to be
+used with the [uv](https://docs.astral.sh/uv/) package manager.
 
 To use, import `session` from `nox_uv` in your `noxfile.py`.
 

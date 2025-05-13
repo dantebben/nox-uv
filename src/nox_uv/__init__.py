@@ -16,7 +16,7 @@ def session(
     python: Python | None = None,
     reuse_venv: bool | None = None,
     name: str | None = None,
-    venv_backend: Any | None = None,
+    venv_backend: str | None = None,
     venv_params: Sequence[str] = (),
     tags: Sequence[str] | None = None,
     default: bool = True,

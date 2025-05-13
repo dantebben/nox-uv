@@ -87,3 +87,8 @@ def only_groups(s: Session) -> None:
     assert isinstance(r, str)
     assert "ruff" in r
     assert "nox-uv" not in r
+
+
+@session(uv_groups=["type-check"], venv_backend="none")
+def failed_uv_venv(s: Session) -> None:
+    pass

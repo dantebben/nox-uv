@@ -267,7 +267,7 @@ wheels = [
 [[package]]
 name = "nox-uv"
 version = "0.3.1.dev0"
-source = { directory = "../../" }
+source = { editable = "../../" }
 dependencies = [
     { name = "nox" },
 ]
@@ -457,7 +457,7 @@ type-check = [
 
 [package.metadata]
 requires-dist = [
-    { name = "nox-uv", directory = "../../" },
+    { name = "nox-uv", editable = "../../" },
     { name = "pyyaml", marker = "extra == 'pyyaml'" },
     { name = "scapy", marker = "extra == 'scapy'" },
 ]

@@ -23,6 +23,7 @@ def session(
     requires: Sequence[str] | None = None,
     uv_groups: Sequence[str] = (),
     uv_extras: Sequence[str] = (),
+    uv_only_groups: Sequence[str] = (),
     uv_all_extras: bool = False,
     uv_all_groups: bool = False,
     **kwargs: dict[str, Any],
@@ -52,6 +53,7 @@ def session(
             uv_extras=uv_extras,
             uv_all_extras=uv_all_extras,
             uv_all_groups=uv_all_groups,
+            uv_only_groups=uv_only_groups,
             **kwargs,
         )  # type: ignore
 
@@ -67,6 +69,10 @@ def session(
     # Add the extras
     for e in uv_extras:
         sync_cmd.append(f"--extra={e}")
+
+    # Add the only-groups
+    for og in uv_only_groups:
+        sync_cmd.append(f"--only-group={og}")
 
     if uv_all_groups:
         sync_cmd.append("--all-groups")

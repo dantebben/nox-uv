@@ -3,7 +3,6 @@ from nox import Session, options, parametrize
 from nox_uv import session
 
 options.error_on_external_run = True
-options.reuse_existing_virtualenvs = False
 options.default_venv_backend = "uv"
 options.sessions = ["uv_lock_check", "lint", "type_check", "test"]
 

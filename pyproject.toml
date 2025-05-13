@@ -2,6 +2,7 @@
 name = "nox-uv"
 version = "0.3.1-dev"
 description = "Facilitate nox integration with uv for Python projects"
+keywords = ["nox", "uv"]
 readme = "README.md"
 authors = [
     { name = "Dan Tebben", email = "dantebben@gmail.com" }
@@ -31,6 +32,8 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/dantebben/nox-uv"
+Repository = "https://github.com/dantebben/nox-uv"
+Issues = "https://github.com/dantebben/nox-uv/issues"
 
 [build-system]
 requires = ["hatchling"]
@@ -97,9 +100,6 @@ split-on-trailing-comma = false
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
-
-[tool.ruff.lint.flake8-bugbear]
-extend-immutable-calls = ["typer.Argument"]
 
 [tool.pytest.ini_options]
 addopts = [

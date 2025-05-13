@@ -84,10 +84,13 @@ def type_check(s: Session) -> None:
 
 ### Added parameters
 
-- `uv_groups`: list of `uv` dependency groups
-- `uv_extras`: list of `uv` extras
-- `uv_all_extras`: boolean to install all extras from `pyproject.toml`
-- `uv_all_groups`: boolean to install all dependency groups
+- `uv_groups`: list of `uv` _dependency-groups_
+- `uv_extras`: list of `uv` _optional-dependencies_
+- `uv_only_groups`: list of `uv` _only_group_ to include. Prevents installation of project
+   _dependencies_.
+- `uv_all_extras`: boolean to install all _optional-dependencies_ from `pyproject.toml`
+- `uv_all_groups`: boolean to install all _dependency-groups_
+
 
 ## Inspiration
 

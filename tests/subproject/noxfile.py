@@ -8,11 +8,12 @@ options.reuse_existing_virtualenvs = False
 options.sessions = [
     "check_python_version",
     "install_nothing",
-    "only_test_group",
+    "test_group",
     "all_groups",
     "all_extras",
-    "only_one_extra",
+    "one_extra",
     "correct_python",
+    "only_groups",
 ]
 
 
@@ -35,7 +36,7 @@ def install_nothing(s: Session) -> None:
 
 
 @session(uv_groups=["test"])
-def only_test_group(s: Session) -> None:
+def test_group(s: Session) -> None:
     r = s.run("uv", "pip", "list", silent=True)
     assert isinstance(r, str)
     assert "pytest-cov" in r
@@ -63,7 +64,7 @@ def all_extras(s: Session) -> None:
 
 
 @session(uv_extras=["pyyaml"])
-def only_one_extra(s: Session) -> None:
+def one_extra(s: Session) -> None:
     r = s.run("uv", "pip", "list", silent=True)
     assert isinstance(r, str)
     assert "networkx" not in r
@@ -78,3 +79,11 @@ def correct_python(s: Session) -> None:
         assert "Python 3.10" in v
     else:
         raise RuntimeError("Python version was not returned.")
+
+
+@session(uv_only_groups=["lint"])
+def only_groups(s: Session) -> None:
+    r = s.run("uv", "pip", "list", silent=True)
+    assert isinstance(r, str)
+    assert "ruff" in r
+    assert "nox-uv" not in r

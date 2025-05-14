@@ -89,6 +89,11 @@ def only_groups(s: Session) -> None:
     assert "nox-uv" not in r
 
 
+@session(uv_groups=["type-check"], venv_backend="virtualenv")
+def failed_virtualenv(s: Session) -> None:
+    pass
+
+
 @session(uv_groups=["type-check"], venv_backend="none")
-def failed_uv_venv(s: Session) -> None:
+def failed_venv_none(s: Session) -> None:
     pass

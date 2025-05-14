@@ -63,7 +63,7 @@ def all_extras(s: Session) -> None:
     assert "pyyaml" in r
 
 
-@session(uv_extras=["pyyaml"])
+@session(uv_extras=["pyyaml"], uv_sync_locked=False)  # Test at least once without --locked flag
 def one_extra(s: Session) -> None:
     r = s.run("uv", "pip", "list", silent=True)
     assert isinstance(r, str)

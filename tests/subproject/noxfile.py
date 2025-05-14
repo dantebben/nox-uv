@@ -63,7 +63,7 @@ def all_extras(s: Session) -> None:
     assert "pyyaml" in r
 
 
-@session(uv_extras=["pyyaml"])
+@session(uv_extras=["pyyaml"], uv_sync_locked=False)  # Test without the --locked flag
 def one_extra(s: Session) -> None:
     r = s.run("uv", "pip", "list", silent=True)
     assert isinstance(r, str)
@@ -87,3 +87,13 @@ def only_groups(s: Session) -> None:
     assert isinstance(r, str)
     assert "ruff" in r
     assert "nox-uv" not in r
+
+
+@session(uv_groups=["type-check"], venv_backend="virtualenv")
+def failed_virtualenv(s: Session) -> None:
+    pass
+
+
+@session(uv_groups=["type-check"], venv_backend="none")
+def failed_venv_none(s: Session) -> None:
+    pass

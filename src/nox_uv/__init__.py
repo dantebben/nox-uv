@@ -11,10 +11,6 @@ R = TypeVar("R")
 Python = Union[Sequence[str], str, bool]
 
 
-class NoxUVError(RuntimeError):
-    pass
-
-
 def session(
     *args: Any,
     python: Python | None = None,
@@ -108,7 +104,7 @@ def session(
             s.run_install(*sync_cmd)
         else:
             if len(extended_cmd) > 0:
-                raise NoxUVError(
+                raise s.error(
                     "Using uv specific paramaters is not allowed outside of a uv venv_backend.\n"
                     f"Check the venv_backend, or the {extended_cmd} parameters"
                 )

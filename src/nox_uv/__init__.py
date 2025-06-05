@@ -105,7 +105,7 @@ def session(
         else:
             if len(extended_cmd) > 0:
                 raise s.error(
-                    "Using uv specific paramaters is not allowed outside of a uv venv_backend.\n"
+                    'Using uv specific paramaters is not allowed outside of a "uv" venv_backend.\n'
                     f"Check the venv_backend, or the {extended_cmd} parameters"
                 )
 

@@ -24,12 +24,12 @@ def test_run_failed_uv_venv() -> None:
         ["uv", "run", "python", "-m", "nox", "-s", "failed_virtualenv"], capture_output=True
     )
     assert a.returncode == 1  # This test is expected to fail with a `NoxUVError` raised.
-    assert "Using uv specific paramaters is not allowed outside" in a.stderr.decode()
+    assert "Using uv specific paramaters is not allowed outside" in a.stdout.decode()
 
     a = subprocess.run(
         ["uv", "run", "python", "-m", "nox", "-s", "failed_venv_none"], capture_output=True
     )
     assert a.returncode == 1  # This test is expected to fail with a `Session.error` raised.
-    assert "Using uv specific paramaters is not allowed outside" in a.stderr.decode()
+    assert "Using uv specific paramaters is not allowed outside" in a.stdout.decode()
 
     os.chdir(cur_folder)

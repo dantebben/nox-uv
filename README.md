@@ -16,8 +16,8 @@
 [ruff-badge]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
 [mypy-badge]: https://www.mypy-lang.org/static/mypy_badge.svg
 
-`nox-uv` is a basic drop-in replacement for `nox.session` of [nox](https://nox.thea.codes/) to be
-used with the [uv](https://docs.astral.sh/uv/) package manager.
+`nox-uv` is a simple drop-in replacement for [nox](https://nox.thea.codes/)'s `@nox.session` that installs
+dependencies constrained by [uv](https://docs.astral.sh/uv/)'s lockfile.
 
 ## Usage
 

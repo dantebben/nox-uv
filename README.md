@@ -42,6 +42,9 @@ test = [
 type_check = [
     "mypy",
 ]
+lint = [
+    "ruff",
+]
 ```
 
 Within, your `noxfile.py`:
@@ -73,6 +76,11 @@ def test(s: Session) -> None:
 @session(uv_groups=["type_check"])
 def type_check(s: Session) -> None:
     s.run("mypy", "src")
+
+@session(uv_only_groups=["lint"])
+def type_check(s: Session) -> None:
+    s.run("ruff", "check", ".")
+    s.run("ruff", "format", "--check", ".")
 ```
 
 > [!NOTE]

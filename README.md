@@ -99,6 +99,7 @@ def type_check(s: Session) -> None:
    _dependencies_.
 - `uv_all_extras`: boolean to install all _optional-dependencies_ from `pyproject.toml`
 - `uv_all_groups`: boolean to install all _dependency-groups_
+- `uv_sync_locked`: boolean to validate that `uv.lock` is up-to-date
 
 
 ## Inspiration

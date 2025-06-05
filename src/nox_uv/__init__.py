@@ -70,16 +70,13 @@ def session(
         sync_cmd.append("--locked")
 
     # Add the groups
-    for g in uv_groups:
-        extended_cmd.append(f"--group={g}")
+    extended_cmd.extend([f"--group={g}" for g in uv_groups])
 
     # Add the extras
-    for e in uv_extras:
-        extended_cmd.append(f"--extra={e}")
+    extended_cmd.extend([f"--extra={e}" for e in uv_extras])
 
     # Add the only-groups
-    for og in uv_only_groups:
-        extended_cmd.append(f"--only-group={og}")
+    extended_cmd.extend([f"--only-group={g}" for g in uv_only_groups])
 
     if uv_all_groups:
         extended_cmd.append("--all-groups")

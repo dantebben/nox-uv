@@ -22,8 +22,10 @@ def test(s: Session) -> None:
         "-m",
         "pytest",
         "--cov=nox_uv",
+        "--cov-branch",
         "--cov-report=html",
         "--cov-report=term",
+        "--cov-fail-under=100",
         "tests",
         *s.posargs,
     )

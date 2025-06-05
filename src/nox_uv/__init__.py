@@ -26,6 +26,7 @@ def session(
     uv_only_groups: Sequence[str] = (),
     uv_all_extras: bool = False,
     uv_all_groups: bool = False,
+    uv_sync_locked: bool = True,
     **kwargs: dict[str, Any],
 ) -> Callable[..., Callable[..., R]]:
     """Drop-in replacement for the :func:`nox.session` decorator to add support for `uv`.
@@ -54,31 +55,39 @@ def session(
             uv_all_extras=uv_all_extras,
             uv_all_groups=uv_all_groups,
             uv_only_groups=uv_only_groups,
+            uv_sync_locked=uv_sync_locked,
             **kwargs,
         )  # type: ignore
 
     [function] = args
 
     # Create the `uv sync` command
-    sync_cmd = ["uv", "sync", "--no-default-groups", "--locked"]
+    sync_cmd = ["uv", "sync", "--no-default-groups"]
+    extended_cmd: list[str] = []
+
+    # Add the --locked flag
+    if uv_sync_locked:
+        sync_cmd.append("--locked")
 
     # Add the groups
     for g in uv_groups:
-        sync_cmd.append(f"--group={g}")
+        extended_cmd.append(f"--group={g}")
 
     # Add the extras
     for e in uv_extras:
-        sync_cmd.append(f"--extra={e}")
+        extended_cmd.append(f"--extra={e}")
 
     # Add the only-groups
     for og in uv_only_groups:
-        sync_cmd.append(f"--only-group={og}")
+        extended_cmd.append(f"--only-group={og}")
 
     if uv_all_groups:
-        sync_cmd.append("--all-groups")
+        extended_cmd.append("--all-groups")
 
     if uv_all_extras:
-        sync_cmd.append("--all-extras")
+        extended_cmd.append("--all-extras")
+
+    sync_cmd += extended_cmd
 
     @functools.wraps(function)
     def wrapper(s: nox.Session, *_args: Any, **_kwargs: Any) -> None:
@@ -93,6 +102,13 @@ def session(
                 s.env["UV_PYTHON"] = str(s.python)
 
             s.run_install(*sync_cmd)
+        else:
+            if len(extended_cmd) > 0:
+                raise s.error(
+                    'Using "uv" specific paramaters is not allowed outside of a "uv" '
+                    "venv_backend.\n"
+                    f"Check the venv_backend, or the {extended_cmd} parameters."
+                )
 
         function(nox.Session(s._runner), *_args, **_kwargs)
 

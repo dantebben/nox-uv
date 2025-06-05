@@ -77,6 +77,7 @@ def test(s: Session) -> None:
 def type_check(s: Session) -> None:
     s.run("mypy", "src")
 
+
 @session(uv_only_groups=["lint"])
 def type_check(s: Session) -> None:
     s.run("ruff", "check", ".")

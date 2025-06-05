@@ -33,7 +33,7 @@ def session(
     Args:
         args: Positional arguments are forwarded to ``nox.session``.
         kwargs: Keyword arguments are forwarded to ``nox.session``. Used to catch any future
-            arguments of nox.session that aren't explicitely captured in nox_uv.session.
+            arguments of nox.session that aren't explicitly captured in nox_uv.session.
 
     Returns:
         The decorated session function.
@@ -63,16 +63,13 @@ def session(
     sync_cmd = ["uv", "sync", "--no-default-groups", "--locked"]
 
     # Add the groups
-    for g in uv_groups:
-        sync_cmd.append(f"--group={g}")
+    sync_cmd.extend([f"--group={g}" for g in uv_groups])
 
     # Add the extras
-    for e in uv_extras:
-        sync_cmd.append(f"--extra={e}")
+    sync_cmd.extend(f"--extra={e}" for e in uv_extras)
 
     # Add the only-groups
-    for og in uv_only_groups:
-        sync_cmd.append(f"--only-group={og}")
+    sync_cmd.extend([f"--only-group={g}" for g in uv_only_groups])
 
     if uv_all_groups:
         sync_cmd.append("--all-groups")

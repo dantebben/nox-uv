@@ -107,7 +107,7 @@ def session(
                 raise s.error(
                     'Using "uv" specific paramaters is not allowed outside of a "uv" '
                     "venv_backend.\n"
-                    f"Check the venv_backend, or the {extended_cmd} parameters"
+                    f"Check the venv_backend, or the {extended_cmd} parameters."
                 )
 
         function(nox.Session(s._runner), *_args, **_kwargs)

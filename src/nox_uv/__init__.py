@@ -90,6 +90,7 @@ def session(
     def wrapper(s: nox.Session, *_args: Any, **_kwargs: Any) -> None:
         if s.venv_backend == "uv":
             s.env["UV_PROJECT_ENVIRONMENT"] = s.virtualenv.location
+            s.debug(f"{s.env["UV_PROJECT_ENVIRONMENT"]=}")
 
             # UV called from Nox does not respect the Python version set in the Nox session.
             # We need to pass the Python version to UV explicitly.
@@ -97,6 +98,7 @@ def session(
                 # NOTE: casting to string explicitly because implicit casting isn't working
                 # for the type checker.
                 s.env["UV_PYTHON"] = str(s.python)
+                s.debug(f"{s.env["UV_PYTHON"]=}")
 
             s.run_install(*sync_cmd)
         else:

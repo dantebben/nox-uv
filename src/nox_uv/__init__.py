@@ -96,7 +96,7 @@ def session(
             if s.python is not None:
                 # NOTE: casting to string explicitly because implicit casting isn't working
                 # for the type checker.
-                s.env["UV_PYTHON"] = str(s.python)
+                s.env["UV_PYTHON"] = s.virtualenv.location
 
             s.run_install(*sync_cmd)
         else:

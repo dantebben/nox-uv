@@ -94,8 +94,6 @@ def session(
             # UV called from Nox does not respect the Python version set in the Nox session.
             # We need to pass the Python version to UV explicitly.
             if s.python is not None:
-                # NOTE: casting to string explicitly because implicit casting isn't working
-                # for the type checker.
                 s.env["UV_PYTHON"] = s.virtualenv.location
 
             s.run_install(*sync_cmd)

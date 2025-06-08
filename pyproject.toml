@@ -44,6 +44,9 @@ lint = [
     "ruff>=0.9.7",
 ]
 test = [
+    # TODO: Remove this upper bound with pytest-cov fixes issues with filterwarnings = ["error"]
+    #   https://github.com/pytest-dev/pytest-cov/issues/693
+    "pytest<8.4.0",
     "pytest-cov>=6.0.0",
 ]
 type-check = [

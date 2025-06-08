@@ -29,7 +29,7 @@ lint = [
 test = [
     "pytest-cov>=6.0.0",
 ]
-type-check = [
+type_check = [
     "mypy>=1.15.0",
 ]
 
@@ -37,5 +37,5 @@ type-check = [
 default-groups = [
     "lint",
     "test",
-    "type-check",
+    "type_check",
 ]

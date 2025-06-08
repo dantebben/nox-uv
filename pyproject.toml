@@ -49,7 +49,7 @@ test = [
     "pytest<8.4.0",
     "pytest-cov>=6.0.0",
 ]
-type-check = [
+type_check = [
     "mypy>=1.15.0",
 ]
 

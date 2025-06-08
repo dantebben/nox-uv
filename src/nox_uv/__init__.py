@@ -96,6 +96,10 @@ def session(
             if s.python is not None:
                 s.env["UV_PYTHON"] = s.virtualenv.location
 
+            s.debug(
+                f"UV_PYTHON={s.env['UV_PYTHON']} | "
+                f"UV_PROJECT_ENVIRONMENT={s.env['UV_PROJECT_ENVIRONMENT']}"
+            )
             s.run_install(*sync_cmd)
         else:
             if len(extended_cmd) > 0:

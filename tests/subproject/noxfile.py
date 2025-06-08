@@ -3,8 +3,6 @@ from nox import Session, options
 from nox_uv import session
 
 options.default_venv_backend = "uv"
-options.reuse_existing_virtualenvs = False
-
 options.sessions = [
     "check_python_version",
     "install_nothing",
@@ -19,7 +17,7 @@ options.sessions = [
 
 @session(venv_backend="none")
 def check_python_version(s: Session) -> None:
-    s.run("python3", "--version")
+    s.run("python", "--version")
 
 
 @session
@@ -74,7 +72,7 @@ def one_extra(s: Session) -> None:
 @session(python=["3.10"])
 def correct_python(s: Session) -> None:
     assert s.python == "3.10"
-    v = s.run("python3", "--version", silent=True)
+    v = s.run("python", "--version", silent=True)
     if isinstance(v, str):
         assert "Python 3.10" in v
     else:

@@ -16,8 +16,8 @@
 [ruff-badge]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
 [mypy-badge]: https://www.mypy-lang.org/static/mypy_badge.svg
 
-`nox-uv` is a simple drop-in replacement for [nox](https://nox.thea.codes/)'s `@nox.session` that installs
-dependencies constrained by [uv](https://docs.astral.sh/uv/)'s lockfile.
+`nox-uv` is a simple drop-in replacement for [nox](https://nox.thea.codes/)'s `@nox.session` that
+installs dependencies constrained by [uv](https://docs.astral.sh/uv/)'s lockfile.
 
 ## Usage
 
@@ -96,10 +96,11 @@ def type_check(s: Session) -> None:
 - `uv_groups`: list of `uv` _dependency-groups_
 - `uv_extras`: list of `uv` _optional-dependencies_
 - `uv_only_groups`: list of `uv` _only-groups_ to include. Prevents installation of project
-   _dependencies_.
+   _dependencies_
 - `uv_all_extras`: boolean to install all _optional-dependencies_ from `pyproject.toml`
 - `uv_all_groups`: boolean to install all _dependency-groups_
-- `uv_sync_locked`: boolean to validate that `uv.lock` is up-to-date
+- `uv_no_install_project`: boolean to not install the current project
+- `uv_sync_locked`: boolean to validate that `uv.lock` is up to date
 
 
 ## Inspiration

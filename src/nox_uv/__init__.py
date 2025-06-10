@@ -26,6 +26,7 @@ def session(
     uv_only_groups: Sequence[str] = (),
     uv_all_extras: bool = False,
     uv_all_groups: bool = False,
+    uv_no_install_project: bool = False,
     uv_sync_locked: bool = True,
     **kwargs: dict[str, Any],
 ) -> Callable[..., Callable[..., R]]:
@@ -34,7 +35,7 @@ def session(
     Args:
         args: Positional arguments are forwarded to ``nox.session``.
         kwargs: Keyword arguments are forwarded to ``nox.session``. Used to catch any future
-            arguments of nox.session that aren't explicitely captured in nox_uv.session.
+            arguments of nox.session that aren't explicitly captured in nox_uv.session.
 
     Returns:
         The decorated session function.
@@ -55,6 +56,7 @@ def session(
             uv_all_extras=uv_all_extras,
             uv_all_groups=uv_all_groups,
             uv_only_groups=uv_only_groups,
+            uv_no_install_project=uv_no_install_project,
             uv_sync_locked=uv_sync_locked,
             **kwargs,
         )  # type: ignore
@@ -84,6 +86,9 @@ def session(
     if uv_all_extras:
         extended_cmd.append("--all-extras")
 
+    if uv_no_install_project:
+        extended_cmd.append("--no-install-project")
+
     sync_cmd += extended_cmd
 
     @functools.wraps(function)
@@ -104,7 +109,7 @@ def session(
         else:
             if len(extended_cmd) > 0:
                 raise s.error(
-                    'Using "uv" specific paramaters is not allowed outside of a "uv" '
+                    'Using "uv" specific parameters is not allowed outside of a "uv" '
                     "venv_backend.\n"
                     f"Check the venv_backend, or the {extended_cmd} parameters."
                 )

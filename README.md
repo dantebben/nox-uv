@@ -79,7 +79,7 @@ def type_check(s: Session) -> None:
 
 
 @session(uv_only_groups=["lint"])
-def type_check(s: Session) -> None:
+def lint(s: Session) -> None:
     s.run("ruff", "check", ".")
     s.run("ruff", "format", "--check", ".")
 ```

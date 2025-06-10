@@ -12,6 +12,8 @@ options.sessions = [
     "one_extra",
     "correct_python",
     "only_groups",
+    "no_install_project",
+    "do_install_project",
 ]
 
 
@@ -85,6 +87,22 @@ def only_groups(s: Session) -> None:
     assert isinstance(r, str)
     assert "ruff" in r
     assert "nox-uv" not in r
+
+
+@session(uv_no_install_project=True, uv_groups=["lint"])
+def no_install_project(s: Session) -> None:
+    r = s.run("uv", "pip", "list", silent=True)
+    assert isinstance(r, str)
+    assert "ruff" in r
+    assert "subproject" not in r
+
+
+@session(uv_groups=["lint"])
+def do_install_project(s: Session) -> None:
+    r = s.run("uv", "pip", "list", silent=True)
+    assert isinstance(r, str)
+    assert "ruff" in r
+    assert "subproject" in r
 
 
 @session(uv_groups=["type_check"], venv_backend="virtualenv")

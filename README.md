@@ -57,6 +57,8 @@ Within, your `noxfile.py`:
    dependencies.
      - `uv sync` is used to install dependencies so that their versions are constrained by
        `uv.lock`.
+     - By default (configurable with the `uv_sync_locked` parameter), `uv.lock` is also
+       validated to be up to date.
 
 ```py
 from nox import Session, options

@@ -36,17 +36,15 @@ Repository = "https://github.com/dantebben/nox-uv"
 Issues = "https://github.com/dantebben/nox-uv/issues"
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["uv_build>=0.7.19,<0.8.0"]
+build-backend = "uv_build"
 
 [dependency-groups]
 lint = [
     "ruff>=0.9.7",
 ]
 test = [
-    # TODO: Remove this upper bound with pytest-cov fixes issues with filterwarnings = ["error"]
-    #   https://github.com/pytest-dev/pytest-cov/issues/693
-    "pytest<8.4.0",
+    "pytest>=8.4.0",
     "pytest-cov>=6.0.0",
 ]
 type_check = [

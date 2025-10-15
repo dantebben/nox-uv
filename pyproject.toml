@@ -46,7 +46,9 @@ lint = [
 ]
 test = [
     "pytest>=8.4.0",
-    "pytest-cov>=6.0.0",
+    "pytest-cov>=6.1.1",
+    # TODO: Remove this pin when CoverageWarnings are fixed.
+    "coverage==7.10.7",
 ]
 type_check = [
     "mypy>=1.15.0",

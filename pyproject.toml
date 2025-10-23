@@ -47,8 +47,7 @@ lint = [
 test = [
     "pytest>=8.4.0",
     "pytest-cov>=6.1.1",
-    # TODO: Remove this pin when CoverageWarnings are fixed.
-    "coverage==7.10.7",
+    "coverage>=7.10.7",
 ]
 type_check = [
     "mypy>=1.15.0",
@@ -112,7 +111,10 @@ xfail_strict = true
 filterwarnings = ["error"]
 
 [tool.coverage.run]
-parallel = true
-# The nox session that calls coverage does not find "src/nox_uv", but it is found in the 
-# subprocess. Coverage generates a warning that the module was not found, but coverage is actually
-# run and determined in the "parallel" subprocess.
+patch = ["subprocess"]
+# The following warning are because the coverage is collected in the subprocess, but it does in
+# fact get collected and combined.
+disable_warnings = [
+    "no-data-collected", 
+    "module-not-imported",
+    ]

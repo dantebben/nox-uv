@@ -11,7 +11,7 @@ def test_run_uv_nox() -> None:
     cur_folder = Path.cwd()
     testing_folder = Path(__file__).parent / "subproject"
     os.chdir(testing_folder)
-    a = subprocess.run(["uv", "run", "python", "-m", "nox"])
+    a = subprocess.run(["nox"])
     assert a.returncode == 0
     os.chdir(cur_folder)
 
@@ -20,15 +20,11 @@ def test_run_failed_uv_venv() -> None:
     cur_folder = Path.cwd()
     testing_folder = Path(__file__).parent / "subproject"
     os.chdir(testing_folder)
-    a = subprocess.run(
-        ["uv", "run", "python", "-m", "nox", "-s", "failed_virtualenv"], capture_output=True
-    )
+    a = subprocess.run(["nox", "-s", "failed_virtualenv"], capture_output=True)
     assert a.returncode == 1  # This test is expected to fail with a `Session.error` raised.
     assert "is not allowed" in a.stderr.decode()
 
-    a = subprocess.run(
-        ["uv", "run", "python", "-m", "nox", "-s", "failed_venv_none"], capture_output=True
-    )
+    a = subprocess.run(["nox", "-s", "failed_venv_none"], capture_output=True)
     assert a.returncode == 1  # This test is expected to fail with a `Session.error` raised.
     assert "is not allowed" in a.stderr.decode()
 

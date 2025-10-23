@@ -379,7 +379,7 @@ wheels = [
 
 [[package]]
 name = "nox-uv"
-version = "0.6.3.dev0"
+version = "0.6.3"
 source = { editable = "." }
 dependencies = [
     { name = "nox" },

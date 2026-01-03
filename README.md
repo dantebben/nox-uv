@@ -100,7 +100,9 @@ def lint(s: Session) -> None:
 - `uv_only_groups`: list of `uv` _only-groups_ to include. Prevents installation of project
    _dependencies_
 - `uv_all_extras`: boolean to install all _optional-dependencies_ from `pyproject.toml`
+- `uv_no_extras`: list of extras to exclude during install of `uv_all_extras`
 - `uv_all_groups`: boolean to install all _dependency-groups_
+- `uv_no_groups`: list of groups to exclude during install of `uv_all_groups`
 - `uv_no_install_project`: boolean to not install the current project
 - `uv_sync_locked`: boolean to validate that `uv.lock` is up to date
 

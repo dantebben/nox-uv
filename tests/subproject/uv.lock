@@ -278,9 +278,8 @@ requires-dist = [{ name = "nox", specifier = ">=2025.5.1" }]
 [package.metadata.requires-dev]
 lint = [{ name = "ruff", specifier = ">=0.9.7" }]
 test = [
-    { name = "coverage", specifier = "==7.10.7" },
     { name = "pytest", specifier = ">=8.4.0" },
-    { name = "pytest-cov", specifier = ">=6.1.1" },
+    { name = "pytest-cov", specifier = "<7" },
 ]
 type-check = [{ name = "mypy", specifier = ">=1.15.0" }]
 

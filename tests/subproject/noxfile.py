@@ -33,7 +33,7 @@ def install_nothing(s: Session) -> None:
     assert "pyyaml" not in r
     assert "networkx" not in r
     assert "ruff" not in r
-    assert "pytest-cov" not in r
+    assert "nose" not in r
     assert "mypy" not in r
 
 
@@ -41,7 +41,7 @@ def install_nothing(s: Session) -> None:
 def test_group(s: Session) -> None:
     r = s.run("uv", "pip", "list", silent=True)
     assert isinstance(r, str)
-    assert "pytest-cov" in r
+    assert "nose" in r
     assert "networkx" not in r
     assert "ruff" not in r
 
@@ -52,7 +52,7 @@ def all_groups(s: Session) -> None:
     assert isinstance(r, str)
     assert "networkx" in r
     assert "ruff" in r
-    assert "pytest-cov" in r
+    assert "nose" in r
     assert "mypy" in r
 
 
@@ -62,7 +62,7 @@ def all_groups_and_no_group(s: Session) -> None:
     assert isinstance(r, str)
     assert "networkx" not in r
     assert "ruff" not in r
-    assert "pytest-cov" in r
+    assert "nose" in r
     assert "mypy" in r
 
 

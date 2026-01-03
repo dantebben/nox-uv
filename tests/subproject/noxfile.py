@@ -8,7 +8,9 @@ options.sessions = [
     "install_nothing",
     "test_group",
     "all_groups",
+    "all_groups_and_no_group",
     "all_extras",
+    "all_extras_and_no_extra",
     "one_extra",
     "correct_python",
     "only_groups",
@@ -31,7 +33,7 @@ def install_nothing(s: Session) -> None:
     assert "pyyaml" not in r
     assert "networkx" not in r
     assert "ruff" not in r
-    assert "pytest-cov" not in r
+    assert "nose" not in r
     assert "mypy" not in r
 
 
@@ -39,7 +41,7 @@ def install_nothing(s: Session) -> None:
 def test_group(s: Session) -> None:
     r = s.run("uv", "pip", "list", silent=True)
     assert isinstance(r, str)
-    assert "pytest-cov" in r
+    assert "nose" in r
     assert "networkx" not in r
     assert "ruff" not in r
 
@@ -50,7 +52,17 @@ def all_groups(s: Session) -> None:
     assert isinstance(r, str)
     assert "networkx" in r
     assert "ruff" in r
-    assert "pytest-cov" in r
+    assert "nose" in r
+    assert "mypy" in r
+
+
+@session(uv_all_groups=True, uv_no_groups=["never_used", "lint"])
+def all_groups_and_no_group(s: Session) -> None:
+    r = s.run("uv", "pip", "list", silent=True)
+    assert isinstance(r, str)
+    assert "networkx" not in r
+    assert "ruff" not in r
+    assert "nose" in r
     assert "mypy" in r
 
 
@@ -60,6 +72,15 @@ def all_extras(s: Session) -> None:
     assert isinstance(r, str)
     assert "networkx" not in r
     assert "scapy" in r
+    assert "pyyaml" in r
+
+
+@session(uv_all_extras=True, uv_no_extras=["scapy"])
+def all_extras_and_no_extra(s: Session) -> None:
+    r = s.run("uv", "pip", "list", silent=True)
+    assert isinstance(r, str)
+    assert "networkx" not in r
+    assert "scapy" not in r
     assert "pyyaml" in r
 
 

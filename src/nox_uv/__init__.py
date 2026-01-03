@@ -25,7 +25,9 @@ def session(
     uv_extras: Sequence[str] = (),
     uv_only_groups: Sequence[str] = (),
     uv_all_extras: bool = False,
+    uv_no_extras: Sequence[str] = (),
     uv_all_groups: bool = False,
+    uv_no_groups: Sequence[str] = (),
     uv_no_install_project: bool = False,
     uv_sync_locked: bool = True,
     **kwargs: dict[str, Any],
@@ -54,7 +56,9 @@ def session(
             uv_groups=uv_groups,
             uv_extras=uv_extras,
             uv_all_extras=uv_all_extras,
+            uv_no_extras=uv_no_extras,
             uv_all_groups=uv_all_groups,
+            uv_no_groups=uv_no_groups,
             uv_only_groups=uv_only_groups,
             uv_no_install_project=uv_no_install_project,
             uv_sync_locked=uv_sync_locked,
@@ -82,9 +86,13 @@ def session(
 
     if uv_all_groups:
         extended_cmd.append("--all-groups")
+        # Add the no-group(s)
+        extended_cmd.extend([f"--no-group={g}" for g in uv_no_groups])
 
     if uv_all_extras:
         extended_cmd.append("--all-extras")
+        # Add the no-extra(s)
+        extended_cmd.extend([f"--no-extra={e}" for e in uv_no_extras])
 
     if uv_no_install_project:
         extended_cmd.append("--no-install-project")

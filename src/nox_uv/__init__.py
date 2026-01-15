@@ -30,6 +30,7 @@ def session(
     uv_no_groups: Sequence[str] = (),
     uv_no_install_project: bool = False,
     uv_sync_locked: bool = True,
+    uv_quiet: bool = False,
     **kwargs: dict[str, Any],
 ) -> Callable[..., Callable[..., R]]:
     """Drop-in replacement for the :func:`nox.session` decorator to add support for `uv`.
@@ -62,6 +63,7 @@ def session(
             uv_only_groups=uv_only_groups,
             uv_no_install_project=uv_no_install_project,
             uv_sync_locked=uv_sync_locked,
+            uv_quiet=uv_quiet,
             **kwargs,
         )  # type: ignore
 
@@ -74,6 +76,10 @@ def session(
     # Add the --locked flag
     if uv_sync_locked:
         sync_cmd.append("--locked")
+
+    # Silence uv command
+    if uv_quiet:
+        sync_cmd.append("--quiet")
 
     # Add the groups
     extended_cmd.extend([f"--group={g}" for g in uv_groups])

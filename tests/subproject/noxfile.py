@@ -66,7 +66,7 @@ def all_groups_and_no_group(s: Session) -> None:
     assert "mypy" in r
 
 
-@session(uv_all_extras=True)
+@session(uv_all_extras=True, uv_quiet=True)  # test silent mode
 def all_extras(s: Session) -> None:
     r = s.run("uv", "pip", "list", silent=True)
     assert isinstance(r, str)

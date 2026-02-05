@@ -91,7 +91,7 @@ def lint(s: Session) -> None:
 
 > [!NOTE]
 > The `default_groups` defined in `pyproject.toml` are _not_ installed by default. The
-> user must explicitly list the desired groups in the `uv_groups` parameter. 
+> user must explicitly list the desired groups in the `uv_groups` parameter.
 
 ### Added parameters
 
@@ -105,9 +105,10 @@ def lint(s: Session) -> None:
 - `uv_no_groups`: list of groups to exclude during install of `uv_all_groups`
 - `uv_no_install_project`: boolean to not install the current project
 - `uv_sync_locked`: boolean to validate that `uv.lock` is up to date
+- `uv_quiet`: boolean to silence `uv sync` command
 
 
 ## Inspiration
 
-This is heavily influenced by, but much more limited than, 
+This is heavily influenced by, but much more limited than,
 [nox-poetry](https://nox-poetry.readthedocs.io).

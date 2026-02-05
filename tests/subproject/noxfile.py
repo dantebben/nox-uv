@@ -134,3 +134,8 @@ def failed_virtualenv(s: Session) -> None:
 @session(uv_groups=["type_check"], venv_backend="none")
 def failed_venv_none(s: Session) -> None:
     pass
+
+
+@session(uv_quiet=True)
+def quiet_mode(s: Session) -> None:
+    pass

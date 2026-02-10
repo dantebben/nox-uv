@@ -25,7 +25,7 @@ classifiers = [
 ]
 
 requires-python = ">=3.9"
-dependencies = ["nox>=2025.05.01"]
+dependencies = ["nox>=2026.2.9"]
 
 [project.urls]
 Homepage = "https://github.com/dantebben/nox-uv"

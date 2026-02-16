@@ -1,103 +1,92 @@
+[build-system]
+build-backend = "uv_build"
+requires = [ "uv-build>=0.9,<0.10" ]
+
 [project]
 name = "nox-uv"
 version = "0.7.2-dev0"
 description = "Facilitate nox integration with uv for Python projects"
-keywords = ["nox", "uv"]
 readme = "README.md"
-authors = [{ name = "Dan Tebben", email = "dantebben@gmail.com" }]
+keywords = [ "nox", "uv" ]
 license = "MIT"
-license-files = ["LICENSE.txt"]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.14",
-    "Topic :: Software Development :: Testing",
-    "Typing :: Typed",
-]
-
+license-files = [ "LICENSE.txt" ]
+authors = [ { name = "Dan Tebben", email = "dantebben@gmail.com" } ]
 requires-python = ">=3.9"
-dependencies = ["nox>=2026.2.9"]
-
-[project.urls]
-Homepage = "https://github.com/dantebben/nox-uv"
-Repository = "https://github.com/dantebben/nox-uv"
-Issues = "https://github.com/dantebben/nox-uv/issues"
-
-[build-system]
-requires = ["uv_build>=0.9.0,<0.10.0"]
-build-backend = "uv_build"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Software Development :: Testing",
+  "Typing :: Typed",
+]
+dependencies = [ "nox>=2026.2.9" ]
+urls.Homepage = "https://github.com/dantebben/nox-uv"
+urls.Issues = "https://github.com/dantebben/nox-uv/issues"
+urls.Repository = "https://github.com/dantebben/nox-uv"
 
 [dependency-groups]
-lint = ["ruff>=0.9.7"]
 test = [
-    "pytest>=8.4.0",
-    # TODO: Remove this upper bound when CoverageWarnings are fixed.
-    "pytest-cov<7",
+  "pytest>=8.4",
+  # TODO: Remove this upper bound when CoverageWarnings are fixed.
+  "pytest-cov<7",
 ]
-type_check = ["mypy>=1.15.0"]
+lint = [ "pyproject-fmt>=2.8", "ruff>=0.9.7" ]
+type_check = [ "mypy>=1.15" ]
 
 [tool.uv]
 default-groups = "all"
 
+[tool.ruff]
+line-length = 99
+src = [ "src" ]
+lint.select = [
+  "B",   # flake8-bugbear
+  "C4",  # flake8-comprehensions
+  "E",   # pycodestyle
+  "F",   # pyflakes
+  "I",   # isort
+  "ISC", # flake8-implicit-str-concat
+  "N",   # pep8-naming
+  "PIE", # flake8-pie
+  "PT",  # flake-pytest-style
+  "PTH", # flake8-use-pathlib
+  "RUF", # ruff
+  "SIM", # flake8-simplify
+  "TID", # flake8-tidy-imports
+  "UP",  # pyupgrade
+]
+lint.extend-ignore = [ "RUF005", "RUF012" ]
+lint.unfixable = [
+  # Disable removing unused imports by default and only enable within nox so editors don't delete
+  # unused imports while the user is in the middle of editing a file on save.
+  "F401",
+]
+lint.flake8-tidy-imports.ban-relative-imports = "all"
+lint.isort.force-sort-within-sections = true
+lint.isort.split-on-trailing-comma = false
+
+[tool.pytest]
+ini_options.addopts = [ "--strict-config", "--strict-markers" ]
+ini_options.xfail_strict = true
+ini_options.filterwarnings = [ "error" ]
+
+[tool.coverage]
+# The nox session that calls coverage does not find "src/nox_uv", but it is found in the
+
+# subprocess. Coverage generates a warning that the module was not found, but coverage is actually
+
+# run and determined in the "parallel" subprocess.
+
 [tool.mypy]
 ignore_missing_imports = true
 strict = true
-enable_error_code = ["deprecated", "exhaustive-match", "explicit-override"]
-
-
-[tool.ruff]
-line-length = 99
-src = ["src"]
-
-
-[tool.ruff.lint]
-select = [
-    "F",   # pyflakes
-    "E",   # pycodestyle
-    "I",   # isort
-    "N",   # pep8-naming
-    "UP",  # pyupgrade
-    "RUF", # ruff
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
-    "ISC", # flake8-implicit-str-concat
-    "PIE", # flake8-pie
-    "PT",  # flake-pytest-style
-    "PTH", # flake8-use-pathlib
-    "SIM", # flake8-simplify
-    "TID", # flake8-tidy-imports
-]
-extend-ignore = ["RUF005", "RUF012"]
-unfixable = [
-    # Disable removing unused imports by default and only enable within nox so editors don't delete
-    # unused imports while the user is in the middle of editing a file on save.
-    "F401",
-]
-
-[tool.ruff.lint.isort]
-force-sort-within-sections = true
-split-on-trailing-comma = false
-
-
-[tool.ruff.lint.flake8-tidy-imports]
-ban-relative-imports = "all"
-
-[tool.pytest.ini_options]
-addopts = ["--strict-config", "--strict-markers"]
-xfail_strict = true
-filterwarnings = ["error"]
-
-[tool.coverage.run]
-parallel = true
-# The nox session that calls coverage does not find "src/nox_uv", but it is found in the 
-# subprocess. Coverage generates a warning that the module was not found, but coverage is actually
-# run and determined in the "parallel" subprocess.
+enable_error_code = [ "deprecated", "exhaustive-match", "explicit-override" ]

@@ -4,7 +4,7 @@ from nox_uv import session
 
 options.error_on_external_run = True
 options.default_venv_backend = "uv"
-options.sessions = ["lint", "type_check", "test"]
+options.sessions = ["lint", "type_check", "test", "pyproject_fmt_check"]
 
 
 @session(
@@ -65,6 +65,30 @@ def lint(s: Session, command: list[str]) -> None:
 @session(uv_only_groups=["lint"])
 def lint_fix(s: Session) -> None:
     s.run("ruff", "check", ".", "--extend-fixable", "F401", "--fix")
+
+
+@session(uv_only_groups=["lint"])
+@parametrize(
+    "command",
+    [
+        ["pyproject-fmt", "pyproject.toml"],
+        ["pyproject-fmt", "tests/subproject/pyproject.toml"],
+    ],
+)
+def pyproject_fmt_fix(s: Session, command: list[str]) -> None:
+    s.run(*command)
+
+
+@session(uv_only_groups=["lint"])
+@parametrize(
+    "command",
+    [
+        ["pyproject-fmt", "--check", "pyproject.toml"],
+        ["pyproject-fmt", "--check", "tests/subproject/pyproject.toml"],
+    ],
+)
+def pyproject_fmt_check(s: Session, command: list[str]) -> None:
+    s.run(*command)
 
 
 @session(uv_groups=["test", "type_check"])

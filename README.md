@@ -106,6 +106,8 @@ def lint(s: Session) -> None:
 - `uv_all_groups`: boolean to install all _dependency-groups_
 - `uv_no_groups`: list of groups to exclude during install of `uv_all_groups`
 - `uv_no_install_project`: boolean to not install the current project
+- `uv_packages`: list of `uv` _packages_ to install, only valid in a `uv` workspace.
+- `uv_all_packages`: boolean to install all `uv` _packages_, only valid in a `uv` workspace.
 - `uv_sync_locked`: boolean to validate that `uv.lock` is up to date
 - `uv_quiet`: boolean to silence `uv sync` command
 

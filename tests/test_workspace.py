@@ -8,11 +8,7 @@ PKG_TWO_BIN = "package-two-bin"
 PKG_ONE_GREETING = "Hello from package-one!"
 PKG_TWO_GREETING = "Hello from package-two!"
 
-
-@pytest.fixture(autouse=True)
-def chdir_workspace(monkeypatch: pytest.MonkeyPatch) -> None:
-    testing_folder = Path(__file__).parent / "subworkspace"
-    monkeypatch.chdir(testing_folder)
+TESTING_FOLDER = Path(__file__).parent / "subworkspace"
 
 
 @pytest.mark.parametrize(
@@ -35,6 +31,7 @@ def test_expected_success(
         ["uv", "run", "python", "-m", "nox", "-s", session_name, "--", run_binary],
         capture_output=True,
         text=True,
+        cwd=TESTING_FOLDER,
     )
     assert a.returncode == 0, a.stderr
     assert expect_in_stdout in a.stdout
@@ -63,6 +60,7 @@ def test_expected_failure(
         ["uv", "run", "python", "-m", "nox", "-s", session_name, "--", run_binary],
         capture_output=True,
         text=True,
+        cwd=TESTING_FOLDER,
     )
     assert a.returncode == 1
     assert expect_in_stderr in a.stderr

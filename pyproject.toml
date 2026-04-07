@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "uv_build"
-requires = [ "uv-build>=0.9,<0.10" ]
+requires = [ "uv-build>=0.9,<0.12" ]
 
 [project]
 name = "nox-uv"
@@ -11,15 +11,13 @@ keywords = [ "nox", "uv" ]
 license = "MIT"
 license-files = [ "LICENSE.txt" ]
 authors = [ { name = "Dan Tebben", email = "dantebben@gmail.com" } ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",

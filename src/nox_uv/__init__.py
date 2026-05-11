@@ -31,6 +31,8 @@ def session(
     uv_no_install_project: bool = False,
     uv_sync_locked: bool = True,
     uv_quiet: bool = False,
+    uv_packages: Sequence[str] = (),
+    uv_all_packages: bool = False,
     **kwargs: dict[str, Any],
 ) -> Callable[..., Callable[..., R]]:
     """Drop-in replacement for the :func:`nox.session` decorator to add support for `uv`.
@@ -62,6 +64,8 @@ def session(
             uv_no_groups=uv_no_groups,
             uv_only_groups=uv_only_groups,
             uv_no_install_project=uv_no_install_project,
+            uv_packages=uv_packages,
+            uv_all_packages=uv_all_packages,
             uv_sync_locked=uv_sync_locked,
             uv_quiet=uv_quiet,
             **kwargs,
@@ -103,10 +107,19 @@ def session(
     if uv_no_install_project:
         extended_cmd.append("--no-install-project")
 
+    for pkg in uv_packages:
+        extended_cmd.append(f"--package={pkg}")
+
+    if uv_all_packages:
+        extended_cmd.append("--all-packages")
+
     sync_cmd += extended_cmd
 
     @functools.wraps(function)
     def wrapper(s: nox.Session, *_args: Any, **_kwargs: Any) -> None:
+        if uv_packages and uv_all_packages:
+            raise s.error("uv_packages and uv_all_packages are mututally exclusive")
+
         if s.venv_backend == "uv":
             s.env["UV_PROJECT_ENVIRONMENT"] = s.virtualenv.location
 

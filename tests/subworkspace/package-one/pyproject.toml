@@ -3,30 +3,21 @@ build-backend = "uv_build"
 requires = [ "uv-build>=0.11,<0.12" ]
 
 [project]
-name = "subproject"
+name = "package-one"
 version = "0.1.0"
 description = "Project for testing nox-uv"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 classifiers = [
   "Private :: Do Not Upload",
   "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
 ]
-dependencies = [ "nox-uv" ]
-optional-dependencies.pyyaml = [ "pyyaml" ]
-optional-dependencies.scapy = [ "scapy" ]
 
-[dependency-groups]
-test = [ "nose>=1.3.7" ]
-lint = [ "ruff>=0.9.7" ]
-never-used = [ "networkx" ]
-type_check = [ "mypy>=1.15" ]
-
-[tool.uv]
-default-groups = [ "lint", "test", "type_check" ]
-sources.nox-uv = { path = "../../", editable = true }
+[project.scripts]
+package-one-bin = "package_one.main:main"

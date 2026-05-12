@@ -1,16 +1,16 @@
 [build-system]
 build-backend = "uv_build"
-requires = [ "uv-build>=0.11,<0.12" ]
+requires = ["uv-build>=0.11,<0.12"]
 
 [project]
 name = "nox-uv"
-version = "0.8.0"
+version = "0.8.0-dev0"
 description = "Facilitate nox integration with uv for Python projects"
 readme = "README.md"
-keywords = [ "nox", "uv" ]
+keywords = ["nox", "uv"]
 license = "MIT"
-license-files = [ "LICENSE.txt" ]
-authors = [ { name = "Dan Tebben", email = "dantebben@gmail.com" } ]
+license-files = ["LICENSE.txt"]
+authors = [{ name = "Dan Tebben", email = "dantebben@gmail.com" }]
 requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -26,7 +26,7 @@ classifiers = [
   "Topic :: Software Development :: Testing",
   "Typing :: Typed",
 ]
-dependencies = [ "nox>=2026.2.9" ]
+dependencies = ["nox>=2026.2.9"]
 urls.Homepage = "https://github.com/dantebben/nox-uv"
 urls.Issues = "https://github.com/dantebben/nox-uv/issues"
 urls.Repository = "https://github.com/dantebben/nox-uv"
@@ -37,15 +37,15 @@ test = [
   # TODO: Remove this upper bound when CoverageWarnings are fixed.
   "pytest-cov<7",
 ]
-lint = [ "pyproject-fmt>=2.8", "ruff>=0.9.7" ]
-type_check = [ "mypy>=1.15" ]
+lint = ["pyproject-fmt>=2.8", "ruff>=0.9.7"]
+type_check = ["mypy>=1.15"]
 
 [tool.uv]
 default-groups = "all"
 
 [tool.ruff]
 line-length = 99
-src = [ "src" ]
+src = ["src"]
 lint.select = [
   "B",   # flake8-bugbear
   "C4",  # flake8-comprehensions
@@ -62,7 +62,7 @@ lint.select = [
   "TID", # flake8-tidy-imports
   "UP",  # pyupgrade
 ]
-lint.extend-ignore = [ "RUF005", "RUF012" ]
+lint.extend-ignore = ["RUF005", "RUF012"]
 lint.unfixable = [
   # Disable removing unused imports by default and only enable within nox so editors don't delete
   # unused imports while the user is in the middle of editing a file on save.
@@ -73,9 +73,9 @@ lint.isort.force-sort-within-sections = true
 lint.isort.split-on-trailing-comma = false
 
 [tool.pytest]
-ini_options.addopts = [ "--strict-config", "--strict-markers" ]
+ini_options.addopts = ["--strict-config", "--strict-markers"]
 ini_options.xfail_strict = true
-ini_options.filterwarnings = [ "error" ]
+ini_options.filterwarnings = ["error"]
 
 [tool.coverage]
 # The nox session that calls coverage does not find "src/nox_uv", but it is found in the
@@ -87,4 +87,4 @@ ini_options.filterwarnings = [ "error" ]
 [tool.mypy]
 ignore_missing_imports = true
 strict = true
-enable_error_code = [ "deprecated", "exhaustive-match", "explicit-override" ]
+enable_error_code = ["deprecated", "exhaustive-match", "explicit-override"]

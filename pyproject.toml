@@ -4,7 +4,7 @@ requires = [ "uv-build>=0.11,<0.12" ]
 
 [project]
 name = "nox-uv"
-version = "0.7.2-dev0"
+version = "0.8.0"
 description = "Facilitate nox integration with uv for Python projects"
 readme = "README.md"
 keywords = [ "nox", "uv" ]

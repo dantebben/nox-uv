@@ -133,6 +133,11 @@ def session(
                 f"UV_PROJECT_ENVIRONMENT={s.env['UV_PROJECT_ENVIRONMENT']}"
             )
             s.run_install(*sync_cmd)
+        elif s.venv_backend == 'none':
+            # Allow users to re-use an existing venv with `nox --no-venv`
+            # (aka `--force-venv-backend none`).
+            s.warn('No venv_backend specified, reusing existing venv. '
+                   '"uv" specific parameters will be ignored.')
         else:
             if len(extended_cmd) > 0:
                 raise s.error(

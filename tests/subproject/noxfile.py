@@ -92,12 +92,12 @@ def one_extra(s: Session) -> None:
     assert "pyyaml" in r
 
 
-@session(python=["3.10"])
+@session(python=["3.11"])
 def correct_python(s: Session) -> None:
-    assert s.python == "3.10"
+    assert s.python == "3.11"
     v = s.run("python", "--version", silent=True)
     if isinstance(v, str):
-        assert "Python 3.10" in v
+        assert "Python 3.11" in v
     else:
         raise RuntimeError("Python version was not returned.")
 

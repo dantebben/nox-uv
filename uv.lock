@@ -490,7 +490,7 @@ wheels = [
 
 [[package]]
 name = "nox-uv"
-version = "0.8.0.dev0"
+version = "0.8.1"
 source = { editable = "." }
 default-groups = "all"
 dependencies = [

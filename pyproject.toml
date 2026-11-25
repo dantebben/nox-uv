@@ -4,7 +4,7 @@ requires = [ "uv-build>=0.13.7,<0.14" ]
 
 [project]
 name = "nox-uv"
-version = "0.8.0-dev0"
+version = "0.8.1"
 description = "Facilitate nox integration with uv for Python projects"
 readme = "README.md"
 keywords = [ "nox", "uv" ]
@@ -32,10 +32,7 @@ urls.Issues = "https://github.com/dantebben/nox-uv/issues"
 urls.Repository = "https://github.com/dantebben/nox-uv"
 
 [dependency-groups]
-test = [
-  "pytest>=9.2",
-  "pytest-cov>=7.1",
-]
+test = [ "pytest>=9.2", "pytest-cov>=7.1" ]
 lint = [ "pyproject-fmt>=2.30.3", "ruff>=0.17.3" ]
 type_check = [ "mypy>=2.4.1" ]
 

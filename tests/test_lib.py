@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 import subprocess
 
@@ -12,6 +13,7 @@ def test_run_uv_nox() -> None:
     a = subprocess.run(
         ["uv", "run", "python", "-m", "nox"],
         cwd=TESTING_FOLDER,
+        env={**os.environ, "UV_PROJECT_ENVIRONMENT": str(TESTING_FOLDER / ".venv")},
     )
     assert a.returncode == 0
 
@@ -21,6 +23,7 @@ def test_run_failed_uv_venv() -> None:
         ["uv", "run", "python", "-m", "nox", "-s", "failed_virtualenv"],
         capture_output=True,
         cwd=TESTING_FOLDER,
+        env={**os.environ, "UV_PROJECT_ENVIRONMENT": str(TESTING_FOLDER / ".venv")},
     )
     assert a.returncode == 1  # This test is expected to fail with a `Session.error` raised.
     assert "is not allowed" in a.stderr.decode()
@@ -29,6 +32,7 @@ def test_run_failed_uv_venv() -> None:
         ["uv", "run", "python", "-m", "nox", "-s", "failed_venv_none"],
         capture_output=True,
         cwd=TESTING_FOLDER,
+        env={**os.environ, "UV_PROJECT_ENVIRONMENT": str(TESTING_FOLDER / ".venv")},
     )
     assert a.returncode == 1  # This test is expected to fail with a `Session.error` raised.
     assert "is not allowed" in a.stderr.decode()

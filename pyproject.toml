@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "uv_build"
-requires = [ "uv-build>=0.11,<0.12" ]
+requires = [ "uv-build>=0.13.7,<0.14" ]
 
 [project]
 name = "nox-uv"
@@ -11,34 +11,33 @@ keywords = [ "nox", "uv" ]
 license = "MIT"
 license-files = [ "LICENSE.txt" ]
 authors = [ { name = "Dan Tebben", email = "dantebben@gmail.com" } ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
   "Topic :: Software Development :: Testing",
   "Typing :: Typed",
 ]
-dependencies = [ "nox>=2026.2.9" ]
+dependencies = [ "nox>=2026.10.20" ]
 urls.Homepage = "https://github.com/dantebben/nox-uv"
 urls.Issues = "https://github.com/dantebben/nox-uv/issues"
 urls.Repository = "https://github.com/dantebben/nox-uv"
 
 [dependency-groups]
 test = [
-  "pytest>=8.4",
-  # TODO: Remove this upper bound when CoverageWarnings are fixed.
-  "pytest-cov<7",
+  "pytest>=9.2",
+  "pytest-cov>=7.1",
 ]
-lint = [ "pyproject-fmt>=2.8", "ruff>=0.9.7" ]
-type_check = [ "mypy>=1.15" ]
+lint = [ "pyproject-fmt>=2.30.3", "ruff>=0.17.3" ]
+type_check = [ "mypy>=2.4.1" ]
 
 [tool.uv]
 default-groups = "all"
@@ -72,19 +71,16 @@ lint.flake8-tidy-imports.ban-relative-imports = "all"
 lint.isort.force-sort-within-sections = true
 lint.isort.split-on-trailing-comma = false
 
+[tool.mypy]
+ignore_missing_imports = true
+enable_error_code = [ "deprecated", "exhaustive-match", "explicit-override" ]
+strict = true
+
 [tool.pytest]
 ini_options.addopts = [ "--strict-config", "--strict-markers" ]
 ini_options.xfail_strict = true
 ini_options.filterwarnings = [ "error" ]
 
 [tool.coverage]
-# The nox session that calls coverage does not find "src/nox_uv", but it is found in the
-
-# subprocess. Coverage generates a warning that the module was not found, but coverage is actually
-
-# run and determined in the "parallel" subprocess.
-
-[tool.mypy]
-ignore_missing_imports = true
-strict = true
-enable_error_code = [ "deprecated", "exhaustive-match", "explicit-override" ]
+# pytest-cov 7 delegates subprocess measurement to coverage.py.
+run.patch = [ "subprocess" ]

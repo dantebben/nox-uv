@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 import subprocess
 
@@ -32,6 +33,7 @@ def test_expected_success(
         capture_output=True,
         text=True,
         cwd=TESTING_FOLDER,
+        env={**os.environ, "UV_PROJECT_ENVIRONMENT": str(TESTING_FOLDER / ".venv")},
     )
     assert a.returncode == 0, a.stderr
     assert expect_in_stdout in a.stdout
@@ -61,6 +63,7 @@ def test_expected_failure(
         capture_output=True,
         text=True,
         cwd=TESTING_FOLDER,
+        env={**os.environ, "UV_PROJECT_ENVIRONMENT": str(TESTING_FOLDER / ".venv")},
     )
     assert a.returncode == 1
     assert expect_in_stderr in a.stderr

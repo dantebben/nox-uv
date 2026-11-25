@@ -53,3 +53,13 @@ def test_venv_backend_other_error() -> None:
     )
     assert a.returncode == 1  # This test is expected to fail with a `Session.error` raised.
     assert "is not allowed" in a.stderr.decode()
+
+
+def test_venv_backend_other_error_no_ext_cmd() -> None:
+    """Using a backend other than 'uv' or 'none' with no uv-specific parameters is fine."""
+    a = subprocess.run(
+        ["uv", "run", "python", "-m", "nox", "-s", "use_virtualenv_no_ext_cmd"],
+        capture_output=True,
+        cwd=TESTING_FOLDER,
+    )
+    assert a.returncode == 0  # This should actually pass since there are no uv-specifc parameters.

@@ -131,6 +131,11 @@ def failed_virtualenv(s: Session) -> None:
     pass
 
 
+@session(venv_backend="virtualenv")
+def use_virtualenv_no_ext_cmd(s: Session) -> None:
+    pass
+
+
 @session(uv_groups=["type_check"], venv_backend="none")
 def failed_venv_none(s: Session) -> None:
     pass
